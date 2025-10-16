@@ -4,18 +4,24 @@ import cors from "cors";
 
 const app = Express();
 
-app.use(cors({ origin: ["https://socket-io-client-eight.vercel.app/"] }));
+const allowedOrigins = ["https://socket-io-client-eight.vercel.app"];
+
+app.use(cors({ origin: allowedOrigins }));
 
 const port = 8080;
 
 const server = app.listen(port, () => {
   console.log(
-    `server is running on https://socket-io-server-clh8.onrender.com/`
+    `server is running on https://socket-io-server-1-kkw2.onrender.com`
   );
 });
 
 const io: Server = new Server(server, {
-  cors: { origin: ["https://socket-io-client-eight.vercel.app/"] },
+  cors: {
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
 } as any);
 
 io.on("connect", (socket) => {
