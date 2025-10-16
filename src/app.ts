@@ -4,7 +4,10 @@ import cors from "cors";
 
 const app = Express();
 
-const allowedOrigins = ["https://socket-io-client-eight.vercel.app"];
+const allowedOrigins = [
+  "https://socket-io-client-eight.vercel.app",
+  "http://localhost:5173",
+];
 
 app.use(cors({ origin: allowedOrigins }));
 
