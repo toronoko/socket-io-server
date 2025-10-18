@@ -19,6 +19,10 @@ const server = app.listen(port, () => {
   );
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello there');
+});
+
 const io: Server = new Server(server, {
   cors: {
     origin: allowedOrigins,
