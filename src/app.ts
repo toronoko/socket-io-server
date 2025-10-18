@@ -1,8 +1,8 @@
 import { Server } from "socket.io";
-import Express from "express";
+import express from "express";
 import cors from "cors";
 
-const app = Express();
+const app = express();
 
 const allowedOrigins = [
   "https://socket-io-client-eight.vercel.app",
@@ -19,6 +19,10 @@ const server = app.listen(port, () => {
   );
 });
 
+app.get("/", (req: Request, res: Response) => {
+  (res as any).send("Hello there");
+});
+
 const io: Server = new Server(server, {
   cors: {
     origin: allowedOrigins,
@@ -28,7 +32,10 @@ const io: Server = new Server(server, {
 } as any);
 
 io.on("connect", (socket) => {
-  socket.emit("welcome", `Connected. ${socket.id}`);
+  socket.on("welcome", (hm) => {
+    socket.emit("newJoin", hm);
+    console.log(hm);
+  });
   console.log(`Connection sent to ${socket.id}`);
   socket.join("general");
 
